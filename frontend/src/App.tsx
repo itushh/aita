@@ -5,8 +5,10 @@ import Header from "./components/Header"
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-dvh flex flex-col">
+      <div className="w-315 px-11 fixed left-1/2 top-5 transform -translate-x-1/2 z-50 border-y border-border">
         <Header />
+      </div>
+      <div className="min-h-dvh max-w-300 mx-auto border-x border-border flex flex-col text-foreground font-sans pt-30">
         <Routes>
           <Route path="/" element={<div className="flex-1 flex justify-center items-center">Lander</div>} />
           <Route path="/analyze" element={<Analyze />} />

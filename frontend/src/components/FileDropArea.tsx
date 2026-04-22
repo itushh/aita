@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import Breadcrumb from "./Breadcrumb"
+/* import Breadcrumb from "./Breadcrumb" */
 
 interface FileDropAreaProps {
     onAnalysisComplete: (data: any) => void;
@@ -69,19 +69,21 @@ const FileDropArea = ({ onAnalysisComplete }: FileDropAreaProps) => {
     };
 
     return (
-        <div className="p-8 flex-1 flex flex-col gap-8 max-w-4xl mx-auto w-full text-left">
-            <Breadcrumb />
-
-            <div className="flex flex-col gap-2">
-                <h1 className="text-4xl font-heading font-semibold text-text-h m-0">Upload Policy</h1>
-                <p className="text-text">Upload your insurance policy in PDF format. Our AI will extract key terms and identify hidden clauses.</p>
-            </div>
+        <div className="flex-1 flex flex-col gap-5 p-5 md:p-20 w-full text-center">
+            {/* <div className="flex flex-col gap-4">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+                    Analyze your policy
+                </h1>
+                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    Upload your insurance policy in PDF format. Our AI will extract key terms and identify hidden clauses in seconds.
+                </p>
+            </div> */}
 
             <div
                 className={`
-                    flex-1 min-h-[400px] border-2 border-dashed rounded-3xl flex flex-col justify-center items-center gap-6 transition-all duration-300
-                    ${isDragging ? 'border-accent bg-accent-bg scale-[1.02]' : 'border-border bg-white/5'}
-                    ${isUploading ? 'opacity-50 pointer-events-none' : ''}
+                    group relative flex-1 border-2 border-dashed rounded-4xl flex flex-col justify-center items-center gap-8 transition-all duration-500 cursor-pointer
+                    ${isDragging ? 'border-primary bg-primary/5 scale-[1.01]' : 'border-border bg-muted/30 hover:bg-muted/50 hover:border-muted-foreground/30'}
+                    ${isUploading ? 'opacity-70 pointer-events-none' : ''}
                 `}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -96,35 +98,48 @@ const FileDropArea = ({ onAnalysisComplete }: FileDropAreaProps) => {
                     onChange={handleFileSelect}
                 />
 
-                <div className="w-20 h-20 bg-accent-bg rounded-2xl flex items-center justify-center text-accent">
+                <div className={`w-24 h-24 rounded-3xl flex items-center justify-center transition-all duration-500 ${isDragging ? 'bg-primary text-primary-foreground rotate-6' : 'bg-background text-primary shadow-xl group-hover:scale-110 group-hover:-rotate-3'}`}>
                     {isUploading ? (
-                        <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+                        <div className="w-12 h-12 border-4 border-current border-t-transparent rounded-full animate-spin" />
                     ) : (
-                        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                         </svg>
                     )}
                 </div>
 
-                <div className="flex flex-col items-center gap-2">
-                    <div className="text-xl font-medium text-text-h">
-                        {isUploading ? 'Analyzing your policy...' : 'Click or drag PDF here'}
+                <div className="flex flex-col items-center gap-3">
+                    <div className="text-2xl font-semibold text-foreground">
+                        {isUploading ? 'Analyzing your policy...' : 'Drop your policy here'}
                     </div>
-                    <div className="text-text text-sm">PDF files only (max 10MB)</div>
+                    <div className="text-muted-foreground font-medium">
+                        or click to browse from your computer
+                    </div>
+                </div>
+
+                <div className="flex gap-4">
+                    <div className="px-4 py-1.5 rounded-full bg-background border border-border text-xs font-semibold text-muted-foreground">
+                        PDF ONLY
+                    </div>
+                    <div className="px-4 py-1.5 rounded-full bg-background border border-border text-xs font-semibold text-muted-foreground">
+                        MAX 10MB
+                    </div>
                 </div>
 
                 {error && (
-                    <div className="px-4 py-2 bg-red-500/10 text-red-500 rounded-lg text-sm border border-red-500/20">
+                    <div className="absolute bottom-8 px-6 py-3 bg-destructive/10 text-destructive rounded-xl text-sm border border-destructive/20 font-medium animate-in fade-in slide-in-from-bottom-2">
                         {error}
                     </div>
                 )}
             </div>
 
-            <div className="text-sm text-text/60 italic flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                Your data is secure and processed using advanced encryption.
+            <div className="text-sm text-muted-foreground/60 flex items-center gap-0 justify-center">
+                <div className="p-2 rounded-full hidden md:flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                Your privacy matters. Documents are processed securely and never stored.
             </div>
         </div>
     )

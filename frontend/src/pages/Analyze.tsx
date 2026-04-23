@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import FileDropArea from '../components/FileDropArea';
 import CoverageTab from '../components/tabs/CoverageTab';
 import OverviewTab from '../components/tabs/OverviewTab';
@@ -7,8 +8,14 @@ import WaitingPeriodTab from '../components/tabs/WaitingPeriodTab';
 import RedFlagsTab from '../components/tabs/RedFlagsTab';
 import LoopholesTab from '../components/tabs/LoopholesTab';
 import PreAnalyzedGrid from '../components/PreAnalyzedGrid';
+import { useAuth } from '../lib/AuthContext';
+import { Save, Check, Loader2 } from 'lucide-react';
 
 const Analyze = () => {
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const { user } = useAuth();
+
     const [analysisData, setAnalysisData] = useState<any>(null);
     const [activeTab, setActiveTab] = useState<string>('Overview');
     const [streamingSummary, setStreamingSummary] = useState<string>("");
@@ -16,10 +23,16 @@ const Analyze = () => {
     const [preAnalyzedPolicies, setPreAnalyzedPolicies] = useState<any[]>([]);
     const [isLoadingGrid, setIsLoadingGrid] = useState(true);
 
+    // Save state
+    const [isSaving, setIsSaving] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
+
     useEffect(() => {
         const fetchPreAnalyzed = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/analyze/pre-analyzed`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/analyze/pre-analyzed`, {
+                    credentials: 'include'
+                });
                 if (response.ok) {
                     const data = await response.json();
                     setPreAnalyzedPolicies(data);
@@ -31,20 +44,65 @@ const Analyze = () => {
             }
         };
         fetchPreAnalyzed();
-    }, []);
+
+        // Check if viewing a saved analysis
+        if (searchParams.get('source') === 'saved') {
+            const savedData = localStorage.getItem('saved_analysis');
+            if (savedData) {
+                const parsed = JSON.parse(savedData);
+                setAnalysisData(parsed.analysis);
+                setStreamingSummary(parsed.summary);
+                setView('results');
+                setIsSaved(true);
+                localStorage.removeItem('saved_analysis');
+            }
+        }
+    }, [searchParams]);
 
     const handleSelectPreAnalyzed = async (id: string) => {
         setView('results');
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/analyze/pre-analyzed/${id}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/analyze/pre-analyzed/${id}`, {
+                credentials: 'include'
+            });
             if (response.ok) {
                 const data = await response.json();
                 setAnalysisData(data.analysis);
                 setStreamingSummary(data.summary);
+                setIsSaved(true);
             }
         } catch (error) {
             console.error("Failed to fetch policy analysis:", error);
             setView('selection');
+        }
+    };
+
+    const handleSaveAnalysis = async () => {
+        if (!user) {
+            navigate('/auth');
+            return;
+        }
+
+        setIsSaving(true);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/saved-analysis`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: analysisData.overview.policy_title.value || "Untitled Policy",
+                    summary: streamingSummary,
+                    analysis: analysisData
+                }),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                setIsSaved(true);
+            }
+        } catch (error) {
+            console.error("Failed to save analysis:", error);
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -54,7 +112,13 @@ const Analyze = () => {
                 policies={preAnalyzedPolicies}
                 isLoading={isLoadingGrid}
                 onSelect={handleSelectPreAnalyzed}
-                onUploadClick={() => setView('uploading')}
+                onUploadClick={() => {
+                    if (!user) {
+                        navigate('/auth');
+                    } else {
+                        setView('uploading');
+                    }
+                }}
             />
         );
     }
@@ -66,7 +130,10 @@ const Analyze = () => {
                     setView('results');
                 }}
                 onSummaryChunk={(chunk) => setStreamingSummary(prev => prev + chunk)}
-                onAnalysisComplete={(data: any) => setAnalysisData(data)}
+                onAnalysisComplete={(data: any) => {
+                    setAnalysisData(data);
+                    setIsSaved(false);
+                }}
             />
         )
     }
@@ -77,7 +144,6 @@ const Analyze = () => {
         if (!analysisData && activeTab !== 'Overview') {
             return (
                 <div className="flex flex-col gap-8 p-8 animate-in fade-in duration-500">
-                    {/* Skeleton Loader */}
                     <div className="space-y-8 max-w-4xl">
                         <div className="space-y-3">
                             <div className="h-8 bg-muted/40 animate-pulse rounded-xl w-1/3" />
@@ -124,23 +190,45 @@ const Analyze = () => {
     return (
         <div className="flex flex-col gap-8 text-left max-w-7xl mx-auto w-full flex-1">
             <div className="flex flex-col gap-8">
-                <div className="sticky top-18.25 z-40 bg-background/95 backdrop-blur-sm px-5 mt-10">
-                    <div className="flex border-b border-border gap-1 md:gap-4 overflow-x-auto scrollbar-hide overflow-y-hidden scroll-smooth">
-                        {tabs.map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`py-4 px-4 text-sm font-semibold transition-all duration-300 relative whitespace-nowrap 
-                                    ${activeTab === tab
-                                        ? 'text-primary'
-                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-t-lg'}`}
-                            >
-                                {tab}
-                                {activeTab === tab && (
-                                    <div className="absolute -bottom-px left-0 right-0 h-0.5 bg-primary rounded-full z-10" />
+                <div className="sticky top-23 z-40 bg-background/95 backdrop-blur-sm px-5 pt-5 mt-10">
+                    <div className="flex items-center justify-between border-b border-border px-5">
+                        <div className="flex gap-1 md:gap-4 overflow-x-auto scrollbar-hide overflow-y-hidden scroll-smooth">
+                            {tabs.map((tab) => (
+                                <button
+                                    key={tab}
+                                    onClick={() => setActiveTab(tab)}
+                                    className={`py-4 px-4 text-sm font-semibold transition-all duration-300 relative whitespace-nowrap 
+                                        ${activeTab === tab
+                                            ? 'text-primary'
+                                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-t-lg'}`}
+                                >
+                                    {tab}
+                                    {activeTab === tab && (
+                                        <div className="absolute -bottom-px left-0 right-0 h-0.5 bg-primary rounded-full z-10" />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+
+                        {analysisData && (
+                            <div className="flex items-center gap-2 pb-1">
+                                {isSaved ? (
+                                    <div className="flex items-center gap-1.5 text-green-600 bg-green-500/10 px-3 py-1.5 rounded-full text-xs font-bold">
+                                        <Check className="w-3.5 h-3.5" />
+                                        SAVED
+                                    </div>
+                                ) : (
+                                    <button
+                                        onClick={handleSaveAnalysis}
+                                        disabled={isSaving}
+                                        className="flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-xs font-bold hover:opacity-90 transition-all disabled:opacity-50"
+                                    >
+                                        {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                                        SAVE ANALYSIS
+                                    </button>
                                 )}
-                            </button>
-                        ))}
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -150,20 +238,6 @@ const Analyze = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Back to selection button if in results */}
-            {/* <div className="fixed bottom-8 right-8 z-50">
-                <button
-                    onClick={() => {
-                        setView('selection');
-                        setAnalysisData(null);
-                        setStreamingSummary("");
-                    }}
-                    className="px-6 py-3 rounded-full bg-foreground text-background font-semibold shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
-                >
-                    Analyze Another
-                </button>
-            </div> */}
         </div>
     )
 }

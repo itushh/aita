@@ -54,7 +54,9 @@ const FileDropArea = ({ onAnalysisComplete, onSummaryChunk, onStarted }: FileDro
             const response = await fetch(`${baseUrl}/api/analyze`, {
                 method: 'POST',
                 body: formData,
+                credentials: 'include',
             });
+
 
             if (!response.ok) {
                 const errData = await response.json();
@@ -109,12 +111,12 @@ const FileDropArea = ({ onAnalysisComplete, onSummaryChunk, onStarted }: FileDro
 
 
     return (
-        <div className="flex flex-col gap-10 max-w-4xl mx-auto w-full py-12 px-6">
+        <div className="flex-1 flex flex-col gap-10 w-full py-12 px-12">
             <BorderedCard className="flex-1 flex flex-col">
                 <div className="flex-1 flex flex-col gap-5 w-full text-center">
                     <div
                         className={`
-                        group relative min-h-[400px] border-2 border-dashed rounded-[2.5rem] flex flex-col justify-center items-center gap-8 transition-all duration-500 cursor-pointer p-12
+                        group relative flex-1 border-2 border-dashed rounded-[2.5rem] flex flex-col justify-center items-center gap-8 transition-all duration-500 cursor-pointer p-12
                         ${isDragging ? 'border-primary bg-primary/5 scale-[1.01]' : 'border-border/50 bg-card/40 backdrop-blur-sm hover:bg-card/60 hover:border-primary/30 shadow-xl shadow-black/5'}
                         ${isUploading ? 'opacity-70 pointer-events-none' : ''}
                     `}

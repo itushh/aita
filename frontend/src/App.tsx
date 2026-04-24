@@ -1,3 +1,4 @@
+import React from "react"
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
 import Analyze from "./pages/Analyze"
 import Header from "./components/Header"
@@ -5,6 +6,7 @@ import BorderedCard from "./components/BorderedCard"
 import AuthPage from "./pages/AuthPage"
 import AboutPage from "./pages/AboutPage"
 import AccountPage from "./pages/AccountPage"
+import LandingPage from "./pages/LandingPage"
 import { AuthProvider, useAuth } from "./lib/AuthContext"
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -30,7 +32,7 @@ const AppRoutes = () => {
         </BorderedCard>
       </div>
       <Routes>
-        <Route path="/" element={<div className="flex-1 flex justify-center items-center">Lander</div>} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/analyze" element={<Analyze />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />

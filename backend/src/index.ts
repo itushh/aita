@@ -2,6 +2,7 @@ import express from "express";
 import { connectDB } from "./lib/db.js";
 import { authRouter } from "./routes/auth.route.js";
 import { analyzeRouter } from "./routes/analyze.route.js";
+import { savedAnalysisRouter } from "./routes/savedAnalysis.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { config } from "dotenv";
@@ -31,6 +32,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/analyze", analyzeRouter);
+app.use("/api/saved-analysis", savedAnalysisRouter);
+
 
 app.listen(PORT, async () => {
   await connectDB();

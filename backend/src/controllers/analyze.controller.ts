@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { PDFParse } from "pdf-parse";
 import { GoogleGenAI } from "@google/genai";
+import { Analysis } from "../models/Analysis.model.js";
 
 export const analyzePolicy = async (req: Request, res: Response) => {
     try {
@@ -316,6 +317,27 @@ ${text}
             res.write(`data: ${JSON.stringify({ type: 'error', content: error.message })}\n\n`);
             res.end();
         }
+    }
+};
+
+export const getPreAnalyzedPolicies = async (req: Request, res: Response) => {
+    try {
+        const policies = await Analysis.find({}, "title _id");
+        res.status(200).json(policies);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message || "Internal server error" });
+    }
+};
+
+export const getPreAnalyzedPolicyById = async (req: Request, res: Response) => {
+    try {
+        const policy = await Analysis.findById(req.params.id);
+        if (!policy) {
+            return res.status(404).json({ message: "Policy not found" });
+        }
+        res.status(200).json(policy);
+    } catch (error: any) {
+        res.status(500).json({ message: error.message || "Internal server error" });
     }
 };
 

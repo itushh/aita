@@ -3,6 +3,7 @@ import Analyze from "./pages/Analyze"
 import Header from "./components/Header"
 import BorderedCard from "./components/BorderedCard"
 import AuthPage from "./pages/AuthPage"
+import AboutPage from "./pages/AboutPage"
 import AccountPage from "./pages/AccountPage"
 import { AuthProvider, useAuth } from "./lib/AuthContext"
 
@@ -22,7 +23,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 const AppRoutes = () => {
   return (
-    <div className="min-h-dvh max-w-300 mx-auto flex flex-col text-foreground font-sans">
+    <div className="min-h-dvh max-w-300 mx-auto flex flex-col text-foreground font-sans px-4 sm:px-6 md:px-8">
       <div className="sticky top-2 z-50">
         <BorderedCard>
           <Header />
@@ -33,7 +34,7 @@ const AppRoutes = () => {
         <Route path="/analyze" element={<Analyze />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
-        <Route path="/about" element={<div className="flex-1 flex justify-center items-center">About</div>} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<div className="flex-1 flex justify-center items-center">Contact</div>} />
         <Route path="*" element={<div className="flex-1 flex justify-center items-center">404 | Not Found</div>} />
       </Routes>

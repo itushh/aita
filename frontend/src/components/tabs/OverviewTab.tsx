@@ -41,12 +41,12 @@ const OverviewTab = ({ data, streamingSummary }: OverviewTabProps) => {
         <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Streamed Summary */}
             <BorderedCard>
-                <div className="p-8 rounded-4xl relative overflow-hidden group bg-card border border-border">
+                <div className="p-5 md:p-8 rounded-3xl md:rounded-4xl relative overflow-hidden group bg-card border border-border">
                     <div className="flex items-center gap-3 mb-4">
                         <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Summary</h3>
                     </div>
                     {summary ? (
-                        <p className="text-lg font-medium text-foreground leading-relaxed relative z-10 transition-all duration-300">
+                        <p className="text-base md:text-lg font-medium text-foreground leading-relaxed relative z-10 transition-all duration-300">
                             {summary}
                             {streamingSummary && !data?.critical_summary && <span className="inline-block w-1.5 h-5 ml-1 bg-primary animate-pulse align-middle" />}
                         </p>
@@ -63,10 +63,10 @@ const OverviewTab = ({ data, streamingSummary }: OverviewTabProps) => {
             {/* Header Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <BorderedCard className="md:col-span-2">
-                    <div className="h-full bg-muted/30 border border-border p-8 rounded-4xl relative overflow-hidden group">
+                    <div className="h-full bg-muted/30 border border-border p-5 md:p-8 rounded-3xl md:rounded-4xl relative overflow-hidden group">
                         <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Executive Brief</h3>
                         {data ? (
-                            <p className="text-lg font-medium text-foreground leading-relaxed relative z-10">{data.brief_overview}</p>
+                            <p className="text-base md:text-lg font-medium text-foreground leading-relaxed relative z-10">{data.brief_overview}</p>
                         ) : (
                             <div className="flex flex-col gap-3">
                                 <Skeleton className="h-5 w-full" />
@@ -76,7 +76,7 @@ const OverviewTab = ({ data, streamingSummary }: OverviewTabProps) => {
                     </div>
                 </BorderedCard>
                 <BorderedCard>
-                    <div className="h-full bg-muted/30 border border-border p-8 rounded-4xl flex flex-col justify-center gap-6 text-left">
+                    <div className="h-full bg-muted/30 border border-border p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col justify-center gap-6 text-left">
                         <div>
                             <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">Policy Title</div>
                             {data ? (
@@ -239,8 +239,8 @@ const OverviewTab = ({ data, streamingSummary }: OverviewTabProps) => {
 
             {/* Claims Process */}
             <BorderedCard>
-                <div className="bg-card border border-border rounded-4xl overflow-hidden shadow-sm text-left">
-                    <div className="p-6 md:p-8 border-b border-border bg-muted/10">
+                <div className="bg-card border border-border rounded-3xl md:rounded-4xl overflow-hidden shadow-sm text-left">
+                    <div className="p-5 md:p-8 border-b border-border bg-muted/10">
                         <div className="flex items-center gap-3">
                             <div className="p-3 rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -253,7 +253,7 @@ const OverviewTab = ({ data, streamingSummary }: OverviewTabProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="p-5 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                         <div className="flex flex-col gap-8">
                             <div>
                                 <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Notification Window</div>

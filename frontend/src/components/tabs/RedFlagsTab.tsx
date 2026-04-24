@@ -22,10 +22,10 @@ const RedFlagsTab = ({ data }: RedFlagsTabProps) => {
                         </div>
                         <h3 className="text-xl font-bold text-foreground">Non-Disclosure</h3>
                     </div>
-                    <div className="bg-destructive/5 border border-destructive/10 p-8 rounded-4xl flex flex-col gap-6 flex-1 shadow-sm hover:border-destructive/30 transition-colors text-left">
+                    <div className="bg-destructive/5 border border-destructive/10 p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col gap-6 flex-1 shadow-sm hover:border-destructive/30 transition-colors text-left">
                         <div>
                             <span className="text-[10px] font-bold text-destructive uppercase tracking-widest block mb-2">Look-back Period</span>
-                            <div className="text-3xl font-black text-foreground">{data.nondisclosure_clause.look_back_period || "Not Specified"}</div>
+                            <div className="text-2xl md:text-3xl font-black text-foreground">{data.nondisclosure_clause.look_back_period || "Not Specified"}</div>
                         </div>
                         <div className="h-px bg-destructive/10 w-full" />
                         <div className="flex flex-col gap-3">
@@ -49,7 +49,7 @@ const RedFlagsTab = ({ data }: RedFlagsTabProps) => {
                         </div>
                         <h3 className="text-xl font-bold text-foreground">Material Facts</h3>
                     </div>
-                    <div className="bg-card border border-border p-8 rounded-4xl flex flex-col gap-6 flex-1 shadow-sm group hover:border-primary/20 transition-colors text-left">
+                    <div className="bg-card border border-border p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col gap-6 flex-1 shadow-sm group hover:border-primary/20 transition-colors text-left">
                         <div className="flex flex-col gap-4">
                             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block">What counts as "Material"</span>
                             <ul className="m-0 p-0 list-none flex flex-col gap-3">
@@ -80,7 +80,7 @@ const RedFlagsTab = ({ data }: RedFlagsTabProps) => {
                         </div>
                         <h3 className="text-xl font-bold text-foreground">Fraud Clauses</h3>
                     </div>
-                    <div className="bg-card border border-border p-8 rounded-4xl flex flex-col gap-6 flex-1 shadow-sm text-left">
+                    <div className="bg-card border border-border p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col gap-6 flex-1 shadow-sm text-left">
                         <div className="flex flex-col gap-4 text-sm">
                             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block">Fraudulent Actions</span>
                             <div className="flex flex-wrap gap-2">

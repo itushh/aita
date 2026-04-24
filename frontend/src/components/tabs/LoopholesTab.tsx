@@ -31,9 +31,9 @@ const LoopholesTab = ({ data }: LoopholesTabProps) => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {data.user_rejection_triggers.map((trigger, i) => (
-                            <div key={i} className="bg-destructive/5 border border-destructive/10 p-8 rounded-4xl flex flex-col gap-4 relative overflow-hidden group hover:border-destructive/30 transition-all duration-300">
+                            <div key={i} className="bg-destructive/5 border border-destructive/10 p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col gap-4 relative overflow-hidden group hover:border-destructive/30 transition-all duration-300">
                                 <div className="flex justify-between items-start">
-                                    <span className="text-xl font-bold text-foreground group-hover:text-destructive transition-colors">{trigger.activity}</span>
+                                    <span className="text-lg md:text-xl font-bold text-foreground group-hover:text-destructive transition-colors">{trigger.activity}</span>
                                     {trigger.is_discretionary && (
                                         <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] uppercase font-black rounded-lg border border-primary/20 tracking-widest">Discretionary</span>
                                     )}
@@ -68,15 +68,15 @@ const LoopholesTab = ({ data }: LoopholesTabProps) => {
                     </div>
                     <div className="grid grid-cols-1 gap-6">
                         {data.exploitable_ambiguities.map((amb, i) => (
-                            <div key={i} className="bg-card border border-border p-8 rounded-4xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-center shadow-sm hover:border-primary/20 transition-all duration-300">
+                            <div key={i} className="bg-card border border-border p-5 md:p-8 rounded-3xl md:rounded-4xl grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 items-center shadow-sm hover:border-primary/20 transition-all duration-300">
                                 <div className="flex flex-col gap-4">
                                     <div className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Grey Area Term</div>
-                                    <div className="text-3xl font-black text-foreground tracking-tight underline decoration-primary/20 decoration-4 underline-offset-8">{amb.term}</div>
+                                    <div className="text-2xl md:text-3xl font-black text-foreground tracking-tight underline decoration-primary/20 decoration-4 underline-offset-8">{amb.term}</div>
                                     <div className="mt-4 p-5 bg-muted/30 rounded-2xl border border-border/50">
                                         <p className="text-sm text-foreground font-semibold italic">"{amb.vague_wording}"</p>
                                     </div>
                                 </div>
-                                <div className="bg-primary/5 border border-primary/10 p-8 rounded-4xl relative overflow-hidden">
+                                <div className="bg-primary/5 border border-primary/10 p-5 md:p-8 rounded-3xl md:rounded-4xl relative overflow-hidden">
                                     {/* <div className="absolute top-0 right-0 p-4 opacity-5">
                                     <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M13 14h-2l-.5 2h3l-.5-2zm-12 0h2l.5 2h-3l.5-2zm15-11h-1v-2h-2v2h-1v-2h-2v2h-1v-2h-2v2h-1v-2h-2v2h-1c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-14c0-1.1-.9-2-2-2z" />
@@ -94,7 +94,7 @@ const LoopholesTab = ({ data }: LoopholesTabProps) => {
             {/* Silent Exclusions & Technical Traps */}
             <BorderedCard>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div className="bg-card border border-border p-10 rounded-4xl shadow-sm">
+                    <div className="bg-card border border-border p-6 md:p-10 rounded-3xl md:rounded-4xl shadow-sm">
                         <h4 className="text-xl font-bold text-foreground mb-8 flex items-center gap-4">
                             <div className="w-2 h-8 bg-destructive rounded-full" />
                             Silent Exclusions
@@ -110,7 +110,7 @@ const LoopholesTab = ({ data }: LoopholesTabProps) => {
                     </div>
 
                     <div className="flex flex-col gap-8">
-                        <div className="bg-card border border-border p-8 rounded-4xl shadow-sm hover:border-destructive/30 transition-all duration-300 group">
+                        <div className="bg-card border border-border p-6 md:p-8 rounded-3xl md:rounded-4xl shadow-sm hover:border-destructive/30 transition-all duration-300 group">
                             <h4 className="font-black mb-4 text-[10px] uppercase text-muted-foreground tracking-[0.2em] group-hover:text-destructive transition-colors">Notice Period Trap</h4>
                             {data.technical_traps.notice_period_trap.exists ? (
                                 <div className="p-5 bg-destructive/5 rounded-2xl border border-destructive/10">
@@ -123,7 +123,7 @@ const LoopholesTab = ({ data }: LoopholesTabProps) => {
                             )}
                         </div>
 
-                        <div className="bg-card border border-border p-8 rounded-4xl flex-1 shadow-sm hover:border-destructive/30 transition-all duration-300 group">
+                        <div className="bg-card border border-border p-6 md:p-8 rounded-3xl md:rounded-4xl flex-1 shadow-sm hover:border-destructive/30 transition-all duration-300 group">
                             <h4 className="font-black mb-4 text-[10px] uppercase text-muted-foreground tracking-[0.2em] group-hover:text-destructive transition-colors">Geographic Limitations</h4>
                             {data.technical_traps.geographic_limitations.exists ? (
                                 <div className="flex flex-col gap-6">

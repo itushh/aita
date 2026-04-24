@@ -1,5 +1,4 @@
 import { Upload, FileText, CheckCircle2 } from 'lucide-react';
-import { useEffect } from 'react';
 import BorderedCard from './BorderedCard';
 
 interface PreAnalyzedPolicy {
@@ -15,10 +14,6 @@ interface PreAnalyzedGridProps {
 }
 
 const PreAnalyzedGrid: React.FC<PreAnalyzedGridProps> = ({ policies, onSelect, onUploadClick, isLoading }) => {
-
-    useEffect(() => {
-        console.log(policies)
-    }, [policies]);
 
     return (
         <div className="flex flex-col gap-10 max-w-6xl mx-auto w-full py-12 px-6">
@@ -54,9 +49,8 @@ const PreAnalyzedGrid: React.FC<PreAnalyzedGridProps> = ({ policies, onSelect, o
                 <div className="flex flex-col gap-8 max-w-6xl mx-auto w-full">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <BorderedCard>
+                            <BorderedCard key={i}>
                                 <div
-                                    key={i}
                                     className="relative overflow-hidden h-50 rounded-3xl border border-border/50 bg-muted/20"
                                 >
                                     <div className="absolute inset-0 bg-linear-to-r rotate-25 scale-200 from-transparent via-white/20 to-transparent animate-shimmer" />
@@ -68,9 +62,8 @@ const PreAnalyzedGrid: React.FC<PreAnalyzedGridProps> = ({ policies, onSelect, o
                 :
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {policies.map((policy) => (
-                        <BorderedCard>
+                        <BorderedCard key={policy._id}>
                             <div
-                                key={policy._id}
                                 onClick={() => onSelect(policy._id)}
                                 className="flex flex-col items-start gap-4 p-10 rounded-[2rem] border border-border/50 bg-card/40 backdrop-blur-sm hover:bg-card/60 cursor-pointer transition-all text-left shadow-lg shadow-black/5"
                             >

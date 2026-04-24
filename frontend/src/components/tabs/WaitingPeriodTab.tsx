@@ -13,7 +13,7 @@ interface WaitingPeriodTabProps {
 const WaitingPeriodTab = ({ data }: WaitingPeriodTabProps) => {
     if (!data.mention) {
         return (
-            <div className="p-12 text-center bg-muted/20 rounded-4xl border border-dashed border-border m-8">
+            <div className="p-8 md:p-12 text-center bg-muted/20 rounded-3xl md:rounded-4xl border border-dashed border-border m-4 md:m-8">
                 <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4 text-muted-foreground">
                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -28,10 +28,10 @@ const WaitingPeriodTab = ({ data }: WaitingPeriodTabProps) => {
         <div className="flex flex-col gap-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Max Duration Banner */}
             <BorderedCard>
-                <div className="bg-primary/5 border border-primary/10 p-10 rounded-[2.5rem] flex flex-col items-center justify-center gap-4 text-center relative overflow-hidden group shadow-sm">
+                <div className="bg-primary/5 border border-primary/10 p-6 md:p-10 rounded-3xl md:rounded-[2.5rem] flex flex-col items-center justify-center gap-4 text-center relative overflow-hidden group shadow-sm">
                     <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-primary/30 to-transparent" />
                     <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Standard Cooling-off Period</span>
-                    <div className="text-6xl font-black text-foreground drop-shadow-sm group-hover:scale-105 transition-transform duration-500">{data.max_duration}</div>
+                    <div className="text-4xl md:text-6xl font-black text-foreground drop-shadow-sm group-hover:scale-105 transition-transform duration-500">{data.max_duration}</div>
                     <div className="h-1 w-12 bg-primary/20 rounded-full mt-2" />
                     <p className="text-muted-foreground text-sm font-medium max-w-sm mt-2 leading-relaxed">This is the general waiting period before most benefits become active under this policy.</p>
                 </div>
@@ -72,7 +72,7 @@ const WaitingPeriodTab = ({ data }: WaitingPeriodTabProps) => {
                     </div>
                     {!data.scoped ? (
                         <BorderedCard>
-                            <div className="bg-muted/30 border border-border p-12 rounded-2xl text-center italic text-muted-foreground font-medium">
+                            <div className="bg-muted/30 border border-border p-8 md:p-12 rounded-2xl md:rounded-3xl text-center italic text-muted-foreground font-medium">
                                 No special waiting periods for specific conditions detected.
                             </div>
                         </BorderedCard>

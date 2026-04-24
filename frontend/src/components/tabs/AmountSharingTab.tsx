@@ -29,10 +29,10 @@ const AmountSharingTab = ({ data }: AmountSharingTabProps) => {
             {/* Primary Amounts */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <BorderedCard>
-                    <div className="bg-green-500/5 border border-green-500/10 p-8 rounded-4xl flex flex-col gap-4 relative overflow-hidden group shadow-sm text-left">
+                    <div className="bg-green-500/5 border border-green-500/10 p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col gap-4 relative overflow-hidden group shadow-sm text-left">
                         <div className="absolute -top-12 -right-12 w-32 h-32 bg-green-500/10 rounded-full blur-3xl group-hover:bg-green-500/20 transition-all duration-700" />
                         <h3 className="text-xs font-bold uppercase tracking-widest text-green-600">Total Sum Insured</h3>
-                        <div className="text-5xl font-black text-foreground drop-shadow-sm">{data.sum_insured.base_amount}</div>
+                        <div className="text-3xl md:text-5xl font-black text-foreground drop-shadow-sm">{data.sum_insured.base_amount}</div>
                         <div className="flex items-center gap-3 mt-4">
                             <span className={`px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-tighter shadow-sm ${data.sum_insured.is_floater.bool ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
                                 {data.sum_insured.is_floater.bool ? 'Floater Plan' : 'Individual Plan'}
@@ -44,7 +44,7 @@ const AmountSharingTab = ({ data }: AmountSharingTabProps) => {
                     </div>
                 </BorderedCard>
                 <BorderedCard>
-                    <div className="bg-card border border-border p-8 rounded-4xl flex flex-col justify-center gap-6 shadow-sm text-left">
+                    <div className="bg-card border border-border p-5 md:p-8 rounded-3xl md:rounded-4xl flex flex-col justify-center gap-6 shadow-sm text-left">
                         <div className="flex justify-between items-end">
                             <div className="flex flex-col gap-1">
                                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Annual Limit</span>
@@ -73,7 +73,7 @@ const AmountSharingTab = ({ data }: AmountSharingTabProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <BorderedCard>
                     <div className="w-full text-left">
-                        <div className={`h-full p-8 rounded-4xl border-2 transition-all duration-300 ${data.cost_sharing.copayment.exists ? 'bg-destructive/5 border-destructive/20 shadow-sm' : 'bg-card border-border hover:border-muted-foreground/30'}`}>
+                        <div className={`h-full p-5 md:p-8 rounded-3xl md:rounded-4xl border-2 transition-all duration-300 ${data.cost_sharing.copayment.exists ? 'bg-destructive/5 border-destructive/20 shadow-sm' : 'bg-card border-border hover:border-muted-foreground/30'}`}>
                             <div className="flex items-center gap-4 mb-6">
                                 <div className={`p-3 rounded-2xl ${data.cost_sharing.copayment.exists ? 'bg-destructive/10 text-destructive' : 'bg-muted text-muted-foreground'}`}>
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ const AmountSharingTab = ({ data }: AmountSharingTabProps) => {
                 </BorderedCard>
                 <BorderedCard>
                     <div className="w-full text-left">
-                        <div className={`h-full p-8 rounded-4xl border-2 transition-all duration-300 ${data.cost_sharing.deductible.exists ? 'bg-destructive/5 border-destructive/20 shadow-sm' : 'bg-card border-border hover:border-muted-foreground/30'}`}>
+                        <div className={`h-full p-5 md:p-8 rounded-3xl md:rounded-4xl border-2 transition-all duration-300 ${data.cost_sharing.deductible.exists ? 'bg-destructive/5 border-destructive/20 shadow-sm' : 'bg-card border-border hover:border-muted-foreground/30'}`}>
                             <div className="flex items-center gap-4 mb-6">
                                 <div className={`p-3 rounded-2xl ${data.cost_sharing.deductible.exists ? 'bg-destructive/10 text-destructive' : 'bg-muted text-muted-foreground'}`}>
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@ const AmountSharingTab = ({ data }: AmountSharingTabProps) => {
             {/* Sub-limits */}
             <BorderedCard>
                 <div className="w-full text-left">
-                    <section className="bg-card border border-border rounded-4xl overflow-hidden shadow-sm">
+                    <section className="bg-card border border-border rounded-3xl md:rounded-4xl overflow-hidden shadow-sm">
                         <div className="p-6 md:p-8 border-b border-border bg-muted/10 flex justify-between items-center">
                             <div className="flex items-center gap-4">
                                 <div className="p-3 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">

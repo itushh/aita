@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion, useMotionTemplate, useMotionValue } from "motion/react";
+import { motion, useMotionValue } from "motion/react";
 import Orb from "../components/Orb";
 import React from "react";
 
@@ -64,15 +64,15 @@ const LandingPage = () => {
         
         <motion.h1 
           style={{ translateZ: 80 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-foreground drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
         >
           Analyze Policies <br/> 
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600">Instantly</span>
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-indigo-500 to-purple-600">Instantly</span>
         </motion.h1>
         
         <motion.p 
           style={{ translateZ: 60 }}
-          className="text-lg md:text-xl text-zinc-300 max-w-[600px] leading-relaxed drop-shadow-md font-medium"
+          className="text-lg md:text-xl text-muted-foreground max-w-150 leading-relaxed drop-shadow-md font-medium"
         >
           Upload complex documents, insurance policies, or legal contracts and let our AI-driven engine extract key insights, risks, and obligations in seconds.
         </motion.p>
@@ -82,7 +82,7 @@ const LandingPage = () => {
           className="flex flex-col sm:flex-row gap-6 pt-6 pointer-events-auto"
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Link to="/analyze" className="inline-flex h-14 items-center justify-center rounded-full bg-white text-black px-10 text-base font-bold shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <Link to="/analyze" className="inline-flex h-14 items-center justify-center rounded-full bg-foreground text-background px-10 text-base font-bold shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all hover:shadow-[0_0_50px_rgba(255,255,255,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
               Start Analyzing
             </Link>
           </motion.div>
